@@ -55,7 +55,7 @@ public class Server {
 		// Create Infrastructure
 		startRegistry();
 		startAASServer();
-		malt = new Malt("",1000);
+		malt = new Malt("",1000); //HERE IS THE ISSUE I HAVE TO REMOVE CONNECTION FOR TESTEXECUTE
 		Response connres = malt.getConnectionResponse();
 		System.out.println(connres);
 		System.out.println(malt.getHost()+ ":"+ malt.getPort()+ ","+malt.isReady());
