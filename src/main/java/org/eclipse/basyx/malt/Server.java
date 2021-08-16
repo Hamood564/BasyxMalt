@@ -110,7 +110,7 @@ public class Server {
 	}
 
 	/**
-	 * Starts an empty registry at "http://localhost:4000"
+	 * Starts an  registry at "http://localhost:4000"
 	 */
 	private static void startRegistry() {
 		BaSyxContextConfiguration contextConfig = new BaSyxContextConfiguration(4000, "/registry");
@@ -122,7 +122,7 @@ public class Server {
 	}
 
 	/**
-	 * Startup an empty server at "http://localhost:4001/"
+	 * Startup an  server at "http://localhost:4001/"
 	 */
 	private static void startAASServer() {
 		BaSyxContextConfiguration contextConfig = new BaSyxContextConfiguration(4001, "/aasServer");
