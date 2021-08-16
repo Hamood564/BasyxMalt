@@ -25,7 +25,7 @@ public class TestExecute {
 		System.out.println(maltExecute.getIdShort() + " is " + maltExecute.getValue());
 		
 		//Execute the Property
-		Malt malt = new Malt("192.168.116.205",5000);
+		Malt malt = new Malt("192.168.116.205",5000); //IT WORKS NOW IF I INSTANTIATE MALT FROM THE EXECUTING SCRIPT WHILE OTHER IS CLOSED
 		Response res = malt.start();
 		
 		System.out.println(res);
