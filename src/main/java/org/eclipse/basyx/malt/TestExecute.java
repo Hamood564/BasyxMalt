@@ -10,6 +10,8 @@ import maltdriver.Malt;
 import maltdriver.Response;
 
 public class TestExecute {
+	
+	
 	public static void main(String[] args) {
 		// Create Manager
 		ConnectedAssetAdministrationShellManager manager =
@@ -21,14 +23,24 @@ public class TestExecute {
 		// Retrieve TestExecute Property
 		ISubmodelElement maltExecute = submodel.getSubmodelElement(Server.MALTEXECUTE);
 		
-		//Print 
+		//Print and check condition
+		
+		
 		System.out.println(maltExecute.getIdShort() + " is " + maltExecute.getValue());
-		
+		Object CheckCondition_Object = maltExecute.getValue();
+		String CheckCondition = CheckCondition_Object.toString();
 		//Execute the Property
-		Malt malt = new Malt("192.168.116.205",5000); //IT WORKS NOW IF I INSTANTIATE MALT FROM THE EXECUTING SCRIPT WHILE OTHER IS CLOSED
-		Response res = malt.start();
 		
-		System.out.println(res);
+		if (CheckCondition.equals("TRUE")) {
+
+			Malt malt = new Malt(Server.IP,Server.Port);
+			Response res = malt.start();	
+			System.out.println(res);
+		}else {
+			System.out.println("No capability to execute");
+		}
+		
+		
 		
 
 		// Print value
