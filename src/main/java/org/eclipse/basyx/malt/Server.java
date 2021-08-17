@@ -35,10 +35,12 @@ import maltdriver.Response;
  */
 public class Server {
 	
-	//malt 
-	public static Malt malt ;
+	public static final String IP = "192.168.116.205";
+	public static final Integer Port = 5000;
 		
 	
+	//Conditions
+	private static String EXECUTECONDITIONS = "TRUE"; //Depends on capability to execute TRUE or FALSE
 	
 	// Server URLs
 	public static final String REGISTRYPATH = "http://localhost:4000/registry";
@@ -55,18 +57,8 @@ public class Server {
 		// Create Infrastructure
 		startRegistry();
 		startAASServer();
-		malt = new Malt("",1000); //HERE IS THE ISSUE I HAVE TO REMOVE CONNECTION FOR TESTEXECUTE
-		//LZ: Did you mean: new Malt("192.168.116.205",5000);?
-		/* It still won't work like this. 
-		The MALT device only supports one TCP connection at a time. We can change this, but I don't think it is the
-		way forward.
-		I am not sure yet what your intentions are, but I'm guessing you want multiple clients to have access to the same MALT
-		device simultaneously. Consider creating a (proxy) MALT server that establishes the (single) TCP connection. Then clients 
-		connect to this proxy and channel requests through it. 
-		Alternatively, if the clients are agents, say, running in the same Java runtime then you could simply make the 
-		unnique 'malt' connection instance available for them to make TCP commands directly.
-		( I can help with this, but need to be clear what the intention is so that we are aiming for the right solution.)
-		*/
+		
+		Malt malt = new Malt(IP,Port);
 		Response connres = malt.getConnectionResponse();
 		System.out.println(connres);
 		System.out.println(malt.getHost()+ ":"+ malt.getPort()+ ","+malt.isReady());
@@ -103,12 +95,13 @@ public class Server {
 		// - Create malt config property
 		Property maltConfig = new Property(MALTCONFIG, configuration);
 		
-		
+		res = malt.disconnect();
+		System.out.println(res);
+		System.out.println(malt.getConnectionResponse());
 		//create malt execute property
 		
-		String execute = "Executing the test";
 		
-		Property maltExecute = new Property(MALTEXECUTE, execute);
+		Property maltExecute = new Property(MALTEXECUTE, EXECUTECONDITIONS);
 		
 		
 
@@ -121,7 +114,7 @@ public class Server {
 	}
 
 	/**
-	 * Starts an  registry at "http://localhost:4000"
+	 * Starts an empty registry at "http://localhost:4000"
 	 */
 	private static void startRegistry() {
 		BaSyxContextConfiguration contextConfig = new BaSyxContextConfiguration(4000, "/registry");
@@ -133,7 +126,7 @@ public class Server {
 	}
 
 	/**
-	 * Startup an  server at "http://localhost:4001/"
+	 * Startup an empty server at "http://localhost:4001/"
 	 */
 	private static void startAASServer() {
 		BaSyxContextConfiguration contextConfig = new BaSyxContextConfiguration(4001, "/aasServer");
