@@ -103,6 +103,7 @@ public class Server {
 	public static final IIdentifier DOCUSMID = new CustomId("eclipse.basyx.submodel.documentation");
 	public static final String MALTCONFIG = "maltConfig";
 	public static final String MALTCALIBERATE = "maltCaliberate";
+	public static final String MALTRESULT = "maltResult";
 	public static final String MALTOPTIONS = "maltOptions";
 	public static final String MALTEXECUTE = "maltExecute";
 	public static final String MALTFILL = "maltFill";
@@ -114,6 +115,7 @@ public class Server {
 	public static final String MALTOFFSET= "maltOffset";
 	public static final String MALTALARMLEAK= "maltAlarmleak";
 	public static final String MALTALARMDIFF= "maltAlarmdiff";
+	public static final String MALTLASTDATA= "maltLastdata";
 	
 	
 	
@@ -173,7 +175,17 @@ public class Server {
 		String options = res.toString();
 		
 		
+		//Get Result of the Tests
+		res = malt.requestResultCode();
+		String resultCode = res.toString(); 
+//		System.out.println(res);
+		res = malt.requestLastData();
+		String LastData = res.getMessage().replaceAll(",", "\t");
 		
+		//System.out.println(res.getResponse());
+//		System.out.println(res.getMessage().replaceAll(",", "\t"));
+				
+				
 		
 		// - Create malt config property
 		Property maltConfig = new Property(MALTCONFIG, configuration);
@@ -181,6 +193,10 @@ public class Server {
 		Property maltCaliberate = new Property(MALTCALIBERATE, caliberation);
 		//Create malt options property
 		Property maltOptions= new Property(MALTOPTIONS, options);
+		//Create malt Result property
+		Property maltResult = new Property(MALTRESULT, resultCode);
+		//Create malt LastData property
+		Property maltLastdata = new Property(MALTLASTDATA, LastData);
 		
 		res = malt.disconnect();
 		System.out.println(res);
@@ -220,7 +236,8 @@ public class Server {
 		documentationSubmodel.addSubmodelElement(maltOffset);
 		documentationSubmodel.addSubmodelElement(maltAlarmleak);
 		documentationSubmodel.addSubmodelElement(maltAlarmdiff);
-				
+		documentationSubmodel.addSubmodelElement(maltResult);	
+		documentationSubmodel.addSubmodelElement(maltLastdata);	
 	
 
 		// - Push the Submodel to the AAS server
