@@ -23,6 +23,7 @@ import org.eclipse.basyx.submodel.metamodel.map.submodelelement.dataelement.prop
 
 import maltdriver.Malt;
 import maltdriver.Response;
+import settings.CalibrationSettings.Channel;
 import settings.Param;
 import settings.TestSettings;
 
@@ -78,8 +79,7 @@ public class Server {
 	
 	static int stab = Integer.parseInt(localCopy.get(Param.stabilisationtime));
 	public static final Object stabexpression = 1000 + stab;
-	
-	
+		
 	static int vent_delay = Integer.parseInt(localCopy.get(Param.ventoffdelay));
 	public static final Object ventexpression = 1000 + vent_delay;
 	
@@ -102,6 +102,8 @@ public class Server {
 	public static final IIdentifier MALTAASID = new CustomId("eclipse.basyx.aas.malt");
 	public static final IIdentifier DOCUSMID = new CustomId("eclipse.basyx.submodel.documentation");
 	public static final String MALTCONFIG = "maltConfig";
+	public static final String MALTCALIBERATE = "maltCaliberate";
+	public static final String MALTOPTIONS = "maltOptions";
 	public static final String MALTEXECUTE = "maltExecute";
 	public static final String MALTFILL = "maltFill";
 	public static final String MALTISOLATE = "maltIsolate";
@@ -152,14 +154,34 @@ public class Server {
 			
 		}
 //		
-		
 		String configuration =testconfig.toString();
+		
+		
+		//calibrations
+		List<String> caliberate = new ArrayList<String>();
+		for (Channel ch : Channel.values()) {
+			res = malt.requestCalibrationSettings(ch);
+			System.out.println(res);
+			String res2 = res.toString();
+			caliberate.add(res2);
+		}
+		String caliberation =caliberate.toString();
+		
+		//options
+		res = malt.requestOptionSettings();
+		System.out.println(res); 
+		String options = res.toString();
 		
 		
 		
 		
 		// - Create malt config property
 		Property maltConfig = new Property(MALTCONFIG, configuration);
+		// Create malt caliberate property
+		Property maltCaliberate = new Property(MALTCALIBERATE, caliberation);
+		//Create malt options property
+		Property maltOptions= new Property(MALTOPTIONS, options);
+		
 		res = malt.disconnect();
 		System.out.println(res);
 		System.out.println(malt.getConnectionResponse());
@@ -186,6 +208,8 @@ public class Server {
 
 		// Add the properties to the Submodel
 		documentationSubmodel.addSubmodelElement(maltConfig);
+		documentationSubmodel.addSubmodelElement(maltCaliberate);
+		documentationSubmodel.addSubmodelElement(maltOptions);
 		documentationSubmodel.addSubmodelElement(maltExecute);
 		documentationSubmodel.addSubmodelElement(maltFill);
 		documentationSubmodel.addSubmodelElement(maltIsolate);
@@ -227,3 +251,4 @@ public class Server {
 		aasServer.startComponent();
 	}
 }
+
