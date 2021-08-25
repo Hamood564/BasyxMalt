@@ -13,8 +13,9 @@ import maltdriver.Response;
 import settings.Param;
 import settings.TestSettings;
 
-public class Isolat_delay {
-	public static void main(String[] args) {
+public class Isolat_delay implements Runnable{
+	@Override
+	public void run() {
 		// Create Manager
 		ConnectedAssetAdministrationShellManager manager =
 				new ConnectedAssetAdministrationShellManager(new AASRegistryProxy(Server.REGISTRYPATH));
@@ -77,9 +78,7 @@ public class Isolat_delay {
 
 		// Print finished state
 		System.out.println(maltIsolate.getIdShort() + " is " + "Executed");	
-	
 
-	
-}
+	}
 
 }
