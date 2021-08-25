@@ -13,8 +13,10 @@ import maltdriver.Response;
 import settings.Param;
 import settings.TestSettings;
 
-public class Testpres {
-	public static void main(String[] args) {
+public class Testpres implements Runnable {
+	
+	@Override
+	public void run() {
 		// Create Manager
 		ConnectedAssetAdministrationShellManager manager =
 				new ConnectedAssetAdministrationShellManager(new AASRegistryProxy(Server.REGISTRYPATH));
@@ -75,8 +77,6 @@ public class Testpres {
 		// Print finished state
 		System.out.println(maltTestpres.getIdShort() + " is " + "Executed");	
 	
-
-	
-}
+	}
 
 }
