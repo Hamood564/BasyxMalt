@@ -13,10 +13,10 @@ import maltdriver.Response;
 import settings.Param;
 import settings.TestSettings;
 
-public class Stabilisation_time {
+public class Stabilisation_time implements Runnable{
 	
-	
-	public static void main(String[] args) {
+	@Override
+	public void run() {
 		// Create Manager
 		ConnectedAssetAdministrationShellManager manager =
 				new ConnectedAssetAdministrationShellManager(new AASRegistryProxy(Server.REGISTRYPATH));
@@ -74,10 +74,8 @@ public class Stabilisation_time {
 		}
 
 		// Print finished state
-		System.out.println(maltStab.getIdShort() + " is " + "Executed");	
-	
+		System.out.println(maltStab.getIdShort() + " is " + "Executed");
 
-	
-}
+	}
 
 }
