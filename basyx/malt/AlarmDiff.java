@@ -13,8 +13,12 @@ import maltdriver.Response;
 import settings.Param;
 import settings.TestSettings;
 
-public class AlarmDiff {
-	public static void main(String[] args) {
+public class AlarmDiff implements Runnable {
+	
+	
+	
+	@Override
+	public void run() {
 		// Create Manager
 		ConnectedAssetAdministrationShellManager manager =
 				new ConnectedAssetAdministrationShellManager(new AASRegistryProxy(Server.REGISTRYPATH));
@@ -74,8 +78,7 @@ public class AlarmDiff {
 
 		// Print finished state
 		System.out.println(maltAlarmdiff.getIdShort() + " is " + "Executed");	
-	
 
-}
+	}
 
 }
