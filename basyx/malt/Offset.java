@@ -13,8 +13,10 @@ import maltdriver.Response;
 import settings.Param;
 import settings.TestSettings;
 
-public class Offset {
-	public static void main(String[] args) {
+public class Offset implements Runnable{
+	
+	@Override
+	public void run() {
 		// Create Manager
 		ConnectedAssetAdministrationShellManager manager =
 				new ConnectedAssetAdministrationShellManager(new AASRegistryProxy(Server.REGISTRYPATH));
@@ -75,7 +77,5 @@ public class Offset {
 		// Print finished state
 		System.out.println(maltOffset.getIdShort() + " is " + "Executed");	
 	
-
-	
-}
+	}
 }
