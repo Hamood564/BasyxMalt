@@ -1,5 +1,4 @@
 package org.eclipse.basyx.malt;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,8 +12,11 @@ import maltdriver.Response;
 import settings.Param;
 import settings.TestSettings;
 
-public class AlarmLeak {
-	public static void main(String[] args) {
+public class AlarmLeak implements Runnable{
+		
+
+	@Override
+	public void run() {
 		// Create Manager
 		ConnectedAssetAdministrationShellManager manager =
 				new ConnectedAssetAdministrationShellManager(new AASRegistryProxy(Server.REGISTRYPATH));
@@ -69,6 +71,18 @@ public class AlarmLeak {
 		}else {
 			System.out.println("No capability to execute");
 		}
+		
+		
+
+		// Print finished state
+		System.out.println(maltAlarmleak.getIdShort() + " is " + "Executed");	
+	
+
+
+	}
+
+}
+
 		
 		
 
