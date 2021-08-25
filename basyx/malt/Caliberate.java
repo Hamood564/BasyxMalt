@@ -5,9 +5,11 @@ import org.eclipse.basyx.aas.registration.proxy.AASRegistryProxy;
 import org.eclipse.basyx.submodel.metamodel.api.ISubmodel;
 import org.eclipse.basyx.submodel.metamodel.api.submodelelement.ISubmodelElement;
 
-public class Caliberate {
+public class Caliberate implements Runnable {
 	
-	public static void main(String[] args) {
+
+	@Override
+	public void run() {
 		// Create Manager
 		ConnectedAssetAdministrationShellManager manager =
 				new ConnectedAssetAdministrationShellManager(new AASRegistryProxy(Server.REGISTRYPATH));
@@ -23,4 +25,3 @@ public class Caliberate {
 	}
 
 }
-
