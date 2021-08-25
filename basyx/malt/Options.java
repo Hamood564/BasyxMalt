@@ -5,8 +5,13 @@ import org.eclipse.basyx.aas.registration.proxy.AASRegistryProxy;
 import org.eclipse.basyx.submodel.metamodel.api.ISubmodel;
 import org.eclipse.basyx.submodel.metamodel.api.submodelelement.ISubmodelElement;
 
-public class Options {
-	public static void main(String[] args) {
+
+
+public class Options implements Runnable {
+
+	
+	@Override
+	public  void run () {
 		// Create Manager
 		ConnectedAssetAdministrationShellManager manager =
 				new ConnectedAssetAdministrationShellManager(new AASRegistryProxy(Server.REGISTRYPATH));
@@ -20,5 +25,9 @@ public class Options {
 		// Print value
 		System.out.println(maltOptions.getIdShort() + " is " + maltOptions.getValue());
 	}
+
+
+
+
 
 }
