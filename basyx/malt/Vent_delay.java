@@ -13,8 +13,10 @@ import maltdriver.Response;
 import settings.Param;
 import settings.TestSettings;
 
-public class Vent_delay {
-	public static void main(String[] args) {
+public class Vent_delay implements Runnable{
+	
+	@Override
+	public void run() {
 		// Create Manager
 		ConnectedAssetAdministrationShellManager manager =
 				new ConnectedAssetAdministrationShellManager(new AASRegistryProxy(Server.REGISTRYPATH));
@@ -76,6 +78,5 @@ public class Vent_delay {
 		System.out.println(maltVentdelay.getIdShort() + " is " + "Executed");	
 	
 
-	
-}
+	}
 }
