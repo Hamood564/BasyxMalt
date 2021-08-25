@@ -13,8 +13,9 @@ import maltdriver.Response;
 import settings.Param;
 import settings.TestSettings;
 
-public class Meas_time {
-	public static void main(String[] args) {
+public class Meas_time implements Runnable{
+	@Override
+	public void run() {
 		// Create Manager
 		ConnectedAssetAdministrationShellManager manager =
 				new ConnectedAssetAdministrationShellManager(new AASRegistryProxy(Server.REGISTRYPATH));
@@ -77,6 +78,6 @@ public class Meas_time {
 		System.out.println(maltMeasure.getIdShort() + " is " + "Executed");	
 	
 
-	
-}
+
+	}
 }
