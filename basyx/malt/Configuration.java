@@ -15,8 +15,10 @@ import org.eclipse.basyx.submodel.metamodel.api.submodelelement.ISubmodelElement
  *
  *
  */
-public class Configuration {
-	public static void main(String[] args) {
+public class Configuration implements Runnable {
+
+	@Override
+	public void run() {
 		// Create Manager
 		ConnectedAssetAdministrationShellManager manager =
 				new ConnectedAssetAdministrationShellManager(new AASRegistryProxy(Server.REGISTRYPATH));
@@ -29,5 +31,6 @@ public class Configuration {
 
 		// Print value
 		System.out.println(maltConfig.getIdShort() + " is " + maltConfig.getValue());
+
 	}
 }
